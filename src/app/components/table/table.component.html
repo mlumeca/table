@@ -1,0 +1,71 @@
+<!-- CHECKBOXS -->
+<section>
+  <!-- Checkbox padre -->
+  <span class="list-section">
+    <mat-checkbox
+      class="margin"
+      [checked]="task().completed"
+      [indeterminate]="partiallyComplete()"
+      (change)="update($event.checked)">
+      {{task().name}}
+    </mat-checkbox>
+  </span>
+
+  <!-- Checkbox hijos -->
+  <span class="list-section">
+    <ul>
+      @for (subtask of task().subtasks; track subtask; let i = $index) {
+        <li>
+          <mat-checkbox 
+              [checked]="subtask.completed" 
+              (change)="update($event.checked, i)">
+              {{subtask.name}}
+          </mat-checkbox>
+        </li>
+      }
+    </ul>
+  </span>
+</section>
+
+<!-- TABLE -->
+<table mat-table [dataSource]="tableData" class="mat-elevation-z8">
+
+    <!-- StudentNumber Column -->
+    <ng-container matColumnDef="studentNumber">
+      <th mat-header-cell *matHeaderCellDef> Nº de alumno </th>
+      <td mat-cell *matCellDef="let student"> {{student.studentNumber}} </td>
+    </ng-container>
+  
+    <!-- Name Column -->
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef> Nombre </th>
+      <td mat-cell *matCellDef="let student"> {{student.name}} </td>
+    </ng-container>
+  
+    <!-- Surname Column -->
+    <ng-container matColumnDef="surname">
+      <th mat-header-cell *matHeaderCellDef> Apellidos </th>
+      <td mat-cell *matCellDef="let student"> {{student.surname}} </td>
+    </ng-container>
+
+    <!-- NIF Column -->
+    <ng-container matColumnDef="nif">
+        <th mat-header-cell *matHeaderCellDef> NIF </th>
+        <td mat-cell *matCellDef="let student"> {{student.nif}} </td>
+    </ng-container>
+
+    <!-- Age Column -->
+    <ng-container matColumnDef="age">
+        <th mat-header-cell *matHeaderCellDef> Edad </th>
+        <td mat-cell *matCellDef="let student"> {{student.age}} </td>
+    </ng-container>
+  
+    <!-- Course Column -->
+    <ng-container matColumnDef="course">
+      <th mat-header-cell *matHeaderCellDef> Curso matriculado </th>
+      <td mat-cell *matCellDef="let student"> {{student.course}} </td>
+    </ng-container>
+  
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
